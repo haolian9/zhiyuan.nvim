@@ -1,0 +1,6 @@
+indent_type = "Spaces"
+indent_width = 2
+quote_style = "AutoPreferDouble"
+column_width = 256
+collapse_simple_statement = "ConditionalOnly"
+line_endings = "Unix"
