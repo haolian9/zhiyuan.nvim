@@ -19,5 +19,11 @@ pub fn build(b: *std.build.Builder) void {
         tests.linkLibC();
         tests.linkSystemLibrary("libnotify");
         tests_step.dependOn(&tests.step);
+
+        const exe = b.addExecutable("zhiyuan", "src/zhiyuan.zig");
+        exe.setBuildMode(mode);
+        exe.linkLibC();
+        exe.linkSystemLibrary("libnotify");
+        exe.install();
     }
 }

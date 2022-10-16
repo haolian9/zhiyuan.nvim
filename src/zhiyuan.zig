@@ -45,6 +45,9 @@ export fn zhiyuan(title: [*:0]const u8, msg: [*:0]const u8, icon: [*:0]const u8,
 
     // todo: limit msg length
     var noti: *c.NotifyNotification = c.notify_notification_new(title, msg, icon);
+    // todo: leak?
+    std.log.debug("xxx {any}\n", .{noti});
+
     c.notify_notification_set_timeout(noti, timeout);
     // todo: handle errors properly
     return c.notify_notification_show(noti, null);
@@ -66,4 +69,15 @@ test "libnotify: zhiyuan way" {
         \\ 碧落秋方静，腾空力尚微。
         \\ 清风如可托，终共白云飞。
     , "", 5_000)));
+}
+
+pub fn main() !void {
+    defer state.deinit();
+    var i: usize = 0;
+    while (i < 5) : (i += 1) {
+        assert(gbool(zhiyuan("纸鸢",
+            \\ 碧落秋方静，腾空力尚微。
+            \\ 清风如可托，终共白云飞。
+        , "", 1_000)));
+    }
 }
