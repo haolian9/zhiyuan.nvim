@@ -14,7 +14,7 @@ prerequisites:
 
 setup:
 * add it to your nvim plugin manager
-* `$ zig build`
+* `$ zig build -Drelease-safe`
 
 use:
 * standalone use: `require'zhiyuan'.notify('hello', 'world')`
