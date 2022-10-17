@@ -13,10 +13,11 @@ supported capatibilities:
 * timeout
 * urgency
 
-prerequisites:
+prerequisites: (i just tested it with these envs)
 * linux with a working notification-daemon like dunst
-* libnotify
+* libnotify 0.8.1
 * [zig 0.10](https://ziglang.org/download)
+* neovim 0.8.0
 
 setup:
 * add it to your nvim plugin manager
