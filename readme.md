@@ -7,8 +7,14 @@ what for:
 
 status: experimental
 
+supported capatibilities:
+* body
+* icon
+* timeout
+* urgency
+
 prerequisites:
-* linux with working notification-daemon like dunst
+* linux with a working notification-daemon like dunst
 * libnotify
 * [zig 0.10](https://ziglang.org/download)
 

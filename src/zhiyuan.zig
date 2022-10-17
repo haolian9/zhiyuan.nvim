@@ -7,10 +7,6 @@ const c = @cImport(@cInclude("libnotify/notify.h"));
 
 const app = "zhiyuan";
 
-fn gbool(val: c_int) bool {
-    return val == 1;
-}
-
 // todo thread-safety?
 var state: struct {
     inited: bool = false,
@@ -38,28 +34,42 @@ var state: struct {
     }
 } = .{};
 
-// todo: proper way to deinit libnotify
-// param timeout: milliseconds
-export fn zhiyuan(title: [*:0]const u8, msg: [*:0]const u8, icon: [*:0]const u8, timeout: c_int) c_int {
+///param timeout: milliseconds
+///param urgency: Urgency; 0 low, 1 normal, 2 critical
+export fn zhiyuan(summary: [*:0]const u8, body: [*:0]const u8, icon: [*:0]const u8, urgency: c_uint, timeout: c_int) c_int {
+    // todo: proper way to deinit libnotify
     if (!state.init(true)) return 0;
 
-    // todo: limit msg length
-    var noti: *c.NotifyNotification = c.notify_notification_new(title, msg, icon);
     // todo: leak?
-    std.log.debug("xxx {any}\n", .{noti});
-
+    const noti: *c.NotifyNotification = c.notify_notification_new(summary, body, icon);
+    c.notify_notification_set_urgency(noti, urgency);
     c.notify_notification_set_timeout(noti, timeout);
     // todo: handle errors properly
     return c.notify_notification_show(noti, null);
+}
+
+const Urgency = enum(u8) {
+    low,
+    normal,
+    critical,
+
+    const Self = @This();
+    fn asUint(self: Self) c_uint {
+        return @enumToInt(self);
+    }
+};
+
+fn gbool(val: c_int) bool {
+    return val == 1;
 }
 
 test "libnotify: primitive way" {
     assert(gbool(c.notify_init(app)));
     defer c.notify_uninit();
 
-    var noti: *c.NotifyNotification = c.notify_notification_new("hello", "world", null);
+    const noti: *c.NotifyNotification = c.notify_notification_new("hello", "world", null);
+    c.notify_notification_set_urgency(noti, Urgency.normal.asUint());
     c.notify_notification_set_timeout(noti, std.time.ms_per_s * 2);
-    // todo: handle errors properly
     assert(gbool(c.notify_notification_show(noti, null)));
 }
 
@@ -68,16 +78,5 @@ test "libnotify: zhiyuan way" {
     assert(gbool(zhiyuan("纸鸢",
         \\ 碧落秋方静，腾空力尚微。
         \\ 清风如可托，终共白云飞。
-    , "", 5_000)));
-}
-
-pub fn main() !void {
-    defer state.deinit();
-    var i: usize = 0;
-    while (i < 5) : (i += 1) {
-        assert(gbool(zhiyuan("纸鸢",
-            \\ 碧落秋方静，腾空力尚微。
-            \\ 清风如可托，终共白云飞。
-        , "", 1_000)));
-    }
+    , "", Urgency.normal.asUint(), 5_000)));
 }

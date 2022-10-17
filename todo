@@ -13,8 +13,3 @@ debug: xxx .srv.playground.zhiyuan.nvim.zig-cache.o.a3bd0d9d1e7bedde8098cea93aaf
 debug: xxx .srv.playground.zhiyuan.nvim.zig-cache.o.a3bd0d9d1e7bedde8098cea93aaf33e5.cimport.struct__NotifyNotification{ .parent_object = .srv.playground.zhiyuan.nvim.zig-cache.o.a3bd0d9d1e7bedde8098cea93aaf33e5.cimport.struct__GObject{ .g_type_instance = .srv.playground.zhiyuan.nvim.zig-cache.o.a3bd0d9d1e7bedde8098cea93aaf33e5.cimport.struct__GTypeInstance{ .g_class = .srv.playground.zhiyuan.nvim.zig-cache.o.a3bd0d9d1e7bedde8098cea93aaf33e5.cimport.struct__GTypeClass@87e910 }, .ref_count = 1, .qdata = null }, .priv = .srv.playground.zhiyuan.nvim.zig-cache.o.a3bd0d9d1e7bedde8098cea93aaf33e5.cimport.struct__NotifyNotificationPrivate@8c2960 }
 debug: xxx .srv.playground.zhiyuan.nvim.zig-cache.o.a3bd0d9d1e7bedde8098cea93aaf33e5.cimport.struct__NotifyNotification{ .parent_object = .srv.playground.zhiyuan.nvim.zig-cache.o.a3bd0d9d1e7bedde8098cea93aaf33e5.cimport.struct__GObject{ .g_type_instance = .srv.playground.zhiyuan.nvim.zig-cache.o.a3bd0d9d1e7bedde8098cea93aaf33e5.cimport.struct__GTypeInstance{ .g_class = .srv.playground.zhiyuan.nvim.zig-cache.o.a3bd0d9d1e7bedde8098cea93aaf33e5.cimport.struct__GTypeClass@87e910 }, .ref_count = 1, .qdata = null }, .priv = .srv.playground.zhiyuan.nvim.zig-cache.o.a3bd0d9d1e7bedde8098cea93aaf33e5.cimport.struct__NotifyNotificationPrivate@8c2e00 }
 ```
-
-more styles?
-* category
-* urgency
-* hint
