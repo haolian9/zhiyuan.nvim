@@ -50,17 +50,8 @@ function M.notify(summary, body, icon, urgency, timeout)
   urgency = M.urgency.normal
   timeout = timeout or 1000
 
-  -- stylua: ignore
   ---@diagnostic disable: undefined-field
-  local rv = C.zhiyuan(
-    ffi.new("char[?]", #summary, summary),
-    ffi.new("char[?]", #body, body),
-    ffi.new("char[?]", #icon, icon),
-    urgency,
-    timeout
-  )
-
-  return rv == 1
+  return C.zhiyuan(summary, body, icon, urgency, timeout) == 1
 end
 
 return M
