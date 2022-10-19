@@ -1,15 +1,9 @@
 local M = {}
 
-local ffi = require("ffi")
 local api = vim.api
 local uv = vim.loop
 
-local root = (function()
-  -- thanks to bfredl for this solution: https://github.com/neovim/neovim/issues/20340#issuecomment-1257142131
-  local source = debug.getinfo(1, "S").source
-  assert(vim.startswith(source, "@") and vim.endswith(source, "init.lua"), "failed to resolve the root dir of zhiyuan.nvim")
-  return vim.fn.fnamemodify(string.sub(source, 2), ":h:h:h")
-end)()
+local lib = require("libzhiyuan")
 
 local nvim_icon = (function()
   local runtime = os.getenv("VIMRUNTIME")
@@ -23,16 +17,8 @@ local nvim_icon = (function()
   return ""
 end)()
 
-ffi.cdef([[
-  int zhiyuan(const char *title, const char *msg, const char *icon, unsigned int urgency, int timeout);
-]])
-_ = ffi.load(string.format("%s/%s", root, "zig-out/lib/libzhiyuan.so"), true)
-
--- the c namespace
-local C = ffi.C
-
 ---@enum urgency
-M.urgency = {
+local urgency_codes = {
   low = 0,
   normal = 1,
   critical = 2,
@@ -40,18 +26,20 @@ M.urgency = {
 
 ---@param summary string
 ---@param body string|nil
----@param icon string|nil
----@param urgency number|nil @default nvim icon if any
----@param timeout number|nil @default 1000ms
+---@param icon string|nil @default nvim icon if any
+---@param urgency string|nil @default "normal"
+---@param timeout number|nil @default 1000 ms
 function M.notify(summary, body, icon, urgency, timeout)
   assert(summary ~= nil)
   body = body or ""
   icon = icon or nvim_icon
-  urgency = M.urgency.normal
+  local urgency_code = urgency_codes[urgency]
+  assert(urgency_code ~= nil)
   timeout = timeout or 1000
+  assert(0 <= timeout)
 
   ---@diagnostic disable: undefined-field
-  return C.zhiyuan(summary, body, icon, urgency, timeout) == 1
+  return lib.notify(summary, body, icon, urgency_code, timeout)
 end
 
 return M
