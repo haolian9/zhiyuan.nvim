@@ -29,7 +29,7 @@ may crash nvim, use at your own risk
 ## setup:
 
 * add it to your nvim plugin manager
-* `$ zig build -Drelease-fast`
+* `$ zig build -Drelease-safe`
 
 ## use:
 
