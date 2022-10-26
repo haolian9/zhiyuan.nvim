@@ -2,13 +2,11 @@
 纸鸢
 ---
 
-## what for:
+sending system-wide notifications via libnotify
 
-provides a lightweight way to send system-wide notifications
+## status: just-work
 
-## status: experimental
-
-may crash nvim, use at your own risk
+yet may crash nvim
 
 ## supported capatibilities:
 
@@ -33,7 +31,7 @@ may crash nvim, use at your own risk
 
 ## use:
 
-* standalone use: `require'zhiyuan'.notify('hello', 'world')`
+* `require'zhiyuan'.notify('hello', 'world')`
 * or let it take over the `vim.notify`
 
 ```
