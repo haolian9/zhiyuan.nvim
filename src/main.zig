@@ -52,6 +52,7 @@ fn notify(L: ?*h.lua_State) callconv(.C) c_int {
     const urgency = blk: {
         const got = h.luaL_checkinteger(L, 4);
         if (!(got >= 0 and got <= 2)) {
+            h.lua_pushboolean(L, 0);
             h.lua_pushstring(L, "invalid urgency");
             return 2;
         }
@@ -103,6 +104,7 @@ test "test zhiyuan.notify" {
     try testing.expect(luaopen_libzhiyuan(L) == 1);
 
     // todo: check return values
+
     {
         const failed = h.luaL_dostring(L,
             \\require'zhiyuan'.notify()
@@ -111,7 +113,6 @@ test "test zhiyuan.notify" {
         h.lua_pop(L, h.lua_gettop(L));
     }
 
-    // todo: check return values
     {
         const failed = h.luaL_dostring(L,
             \\print(require"zhiyuan".notify("hello", "world", "/my/icon", 1, 1001))
@@ -120,7 +121,7 @@ test "test zhiyuan.notify" {
         h.lua_pop(L, h.lua_gettop(L));
     }
 
-    if (false) {
+    {
         const failed = h.luaL_dostring(L,
             \\require'zhiyuan'.notify("hello", "world", "icon", -1, 1001)
         );

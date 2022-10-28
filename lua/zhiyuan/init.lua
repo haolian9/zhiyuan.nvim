@@ -33,7 +33,7 @@ function M.notify(summary, body, icon, urgency, timeout)
   assert(summary ~= nil)
   body = body or ""
   icon = icon or nvim_icon
-  local urgency_code = urgency_codes[urgency]
+  local urgency_code = urgency_codes[urgency or "normal"]
   assert(urgency_code ~= nil)
   timeout = timeout or 1000
   assert(0 <= timeout)
