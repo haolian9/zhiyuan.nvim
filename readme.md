@@ -4,9 +4,9 @@
 
 sending system-wide notifications via libnotify
 
-## status: just-work
+## status: experimental
 
-yet may crash nvim
+it may crash nvim
 
 ## supported capatibilities:
 
@@ -21,7 +21,7 @@ yet may crash nvim
 * a notification-daemon
 * libnotify 0.8.1
 * luajit 2.1.0
-* [zig 0.10](https://ziglang.org/download) # for compiling
+* [zig 0.10](https://ziglang.org/download) # for compilation
 * neovim 0.8.0
 
 ## setup:
