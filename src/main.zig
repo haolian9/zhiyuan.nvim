@@ -49,16 +49,16 @@ fn notify(L: ?*h.lua_State) callconv(.C) c_int {
     const summary = h.luaL_checklstring(L, 1, 0);
     const body = h.luaL_checklstring(L, 2, 0);
     const icon = h.luaL_checklstring(L, 3, 0);
-    const urgency = blk: {
+    const urgency: c_uint = blk: {
         const got = h.luaL_checkinteger(L, 4);
         if (!(got >= 0 and got <= 2)) {
             h.lua_pushboolean(L, 0);
             h.lua_pushstring(L, "invalid urgency");
             return 2;
         }
-        break :blk @intCast(c_uint, got);
+        break :blk @intCast(got);
     };
-    const timeout = @intCast(c_int, h.luaL_checkinteger(L, 5));
+    const timeout: c_int = @intCast(h.luaL_checkinteger(L, 5));
 
     // todo: deinit libnotify
     if (!state.init(true)) {

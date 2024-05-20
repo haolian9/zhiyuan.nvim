@@ -19,15 +19,15 @@ it may crash nvim
 
 * linux
 * a notification-daemon
-* libnotify 0.8.1
+* libnotify 0.8.3
 * luajit 2.1.0
-* [zig 0.10](https://ziglang.org/download) # for compilation
-* neovim 0.8.0
+* zig 0.12 # for compilation
+* neovim 0.10.0
 
 ## setup:
 
 * add it to your nvim plugin manager
-* `$ zig build -Drelease-safe`
+* `$ zig build -Doptimize=ReleaseSafe`
 
 ## use:
 
