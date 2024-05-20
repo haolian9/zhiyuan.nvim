@@ -55,7 +55,7 @@ const Urgency = enum(u8) {
 
     const Self = @This();
     fn asUint(self: Self) c_uint {
-        return @enumToInt(self);
+        return @intFromEnum(self);
     }
 };
 
